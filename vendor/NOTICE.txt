@@ -1,0 +1,4 @@
+lighter-signer.wasm and wasm_exec.js are the official Lighter signer
+build from https://github.com/elliottech/lighter-go (package ./wasm),
+source commit 74e2b99, with wasm_exec.js from the same Go toolchain
+(go 1.27.3). They are not Brynnel original work.
