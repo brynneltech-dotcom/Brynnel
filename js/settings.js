@@ -48,6 +48,6 @@ window.BRYNNEL_SETTINGS = {
       note: "This is Coinbase Wrapped BTC (cbBTC) on Robinhood Chain."
     }
   },
-  x: "",
+  x: "https://x.com/brynnelapp_",
   github: ""
 };

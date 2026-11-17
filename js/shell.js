@@ -164,7 +164,10 @@
           '<button type="button" class="side-login" data-wallet-btn>Log in</button>' +
         "</aside>" +
         '<div class="scrim" data-scrim hidden></div>' +
-        '<main class="main"><div class="main-narrow">' + (inner || "") + "</div></main>" +
+        '<div class="app-body">' +
+          '<main class="main"><div class="main-narrow">' + (inner || "") + "</div></main>" +
+          marketFooter() +
+        "</div>" +
       "</div>"
     );
   }
