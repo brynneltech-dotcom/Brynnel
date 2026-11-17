@@ -35,7 +35,7 @@
       d += (i ? "L" : "M") + x.toFixed(1) + " " + y.toFixed(1);
     });
     var color = up ? "#188a4d" : "#c03a32";
-    return '<svg viewBox="0 0 ' + w + " " + h + '" preserveAspectRatio="none"><path d="' + d + '" fill="none" stroke="' + color + '" stroke-width="1.7" stroke-linejoin="round"/></svg>';
+    return '<svg viewBox="0 0 ' + w + " " + h + '" preserveAspectRatio="none"><path pathLength="1" d="' + d + '" fill="none" stroke="' + color + '" stroke-width="1.7" stroke-linejoin="round"/></svg>';
   }
 
   function clock() {
@@ -72,7 +72,7 @@
 
         '<section class="hero-center">' +
           '<div class="eyebrow-pill"><img src="/assets/mark.png" alt=""> Rule-based agents on Lighter, Robinhood Chain mainnet</div>' +
-          '<h1>Write the rules.<span class="accent">Sign the order.</span></h1>' +
+          '<h1 class="hero-words">Write the rules.<span class="accent">Sign the order.</span></h1>' +
           '<p class="lede">Brynnel is a workshop for rule-based agents on Lighter perpetuals. An agent can propose a move. Only your wallet can send it.</p>' +
           '<div class="hero-ctas">' +
             '<a class="btn" href="/studio">Build an agent</a>' +
@@ -104,11 +104,12 @@
         "</section>" +
 
         '<section class="stats-row">' +
-          '<div><div class="sl">Markets</div><div class="sn" id="st-markets">—</div></div>' +
+          '<div><div class="sl"><span class="live-dot" aria-hidden="true"></span>Markets</div><div class="sn" id="st-markets">—</div></div>' +
           '<div><div class="sl">Agents on this device</div><div class="sn" id="st-agents">—</div></div>' +
           '<div><div class="sl">Filings on this device</div><div class="sn" id="st-filings">—</div></div>' +
           '<div><div class="sl">24h quoted volume</div><div class="sn" id="st-vol">—</div></div>' +
         "</section>" +
+        '<div class="ticker" id="market-ticker" hidden></div>' +
 
         '<section class="desk">' +
           '<div class="desk-brand">' + sh().brandMark() + " Brynnel Studio</div>" +
@@ -389,7 +390,7 @@
     function path(rows, color, width) {
       if (!rows || rows.length < 2) return "";
       var d = rows.map(function (p, i) { return (i ? "L" : "M") + x(i, rows.length).toFixed(1) + " " + y(p.y).toFixed(1); }).join(" ");
-      return '<path d="' + d + '" fill="none" stroke="' + color + '" stroke-width="' + width + '" stroke-linejoin="round"></path>';
+      return '<path pathLength="1" d="' + d + '" fill="none" stroke="' + color + '" stroke-width="' + width + '" stroke-linejoin="round"></path>';
     }
     var cashY = y(10000);
     el.innerHTML = '<svg viewBox="0 0 ' + w + " " + h + '" preserveAspectRatio="none">' +
@@ -405,11 +406,20 @@
     var journal = (root.BrynnelFilings && root.BrynnelFilings.loadJournal()) || [];
     var vol = rows.reduce(function (s, m) { return s + (m.volumeQuote || 0); }, 0);
 
-    var el;
-    el = document.getElementById("st-markets"); if (el) el.textContent = String(rows.length);
-    el = document.getElementById("st-agents"); if (el) el.textContent = String(agents.length).padStart(2, "0");
-    el = document.getElementById("st-filings"); if (el) el.textContent = String(journal.filter(function (e) { return e.kind === "proposal"; }).length).padStart(2, "0");
-    el = document.getElementById("st-vol"); if (el) el.textContent = fmtVol(vol);
+    var mot = root.BrynnelMotion;
+    if (mot) {
+      mot.setCount("st-markets", rows.length, "int");
+      mot.setCount("st-agents", agents.length, "pad2");
+      mot.setCount("st-filings", journal.filter(function (e) { return e.kind === "proposal"; }).length, "pad2");
+      mot.setCount("st-vol", vol, "vol");
+      mot.buildTicker(rows);
+    } else {
+      var el;
+      el = document.getElementById("st-markets"); if (el) el.textContent = String(rows.length);
+      el = document.getElementById("st-agents"); if (el) el.textContent = String(agents.length).padStart(2, "0");
+      el = document.getElementById("st-filings"); if (el) el.textContent = String(journal.filter(function (e) { return e.kind === "proposal"; }).length).padStart(2, "0");
+      el = document.getElementById("st-vol"); if (el) el.textContent = fmtVol(vol);
+    }
 
     var win = document.getElementById("win-rows");
     if (win) {
@@ -539,6 +549,7 @@
           }).join("") + "</tbody></table>";
       }
     }
+    if (root.BrynnelMotion) { root.BrynnelMotion.markPathLength(document); root.BrynnelMotion.enhance(document); }
   }
 
   function render() {
@@ -573,6 +584,7 @@
     }
     document.querySelectorAll("[data-clock]").forEach(function (n) { n.textContent = clock(); });
     sh().bind();
+    if (root.BrynnelMotion) root.BrynnelMotion.enhance(document);
     document.querySelectorAll("[data-faq]").forEach(function (btn) {
       btn.addEventListener("click", function () {
         var item = btn.closest(".faq-item");

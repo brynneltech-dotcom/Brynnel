@@ -425,3 +425,98 @@ html[data-theme="dark"] .cta-box{background:linear-gradient(180deg,#1c1c20,rgba(
   .wordmark{font-size:120px}
   .loop-line{flex-wrap:wrap}
 }
+
+
+/* ===== Motion (Brynnel equivalents of Zolva home movement; not copied) ===== */
+:root{--ease-out:cubic-bezier(.19,1,.22,1);--ease-spring:cubic-bezier(.22,1.2,.36,1)}
+
+.hero-words .hw{display:inline-block;opacity:0;filter:blur(6px);transform:translateY(40%);transition:opacity .7s var(--ease-out),transform .9s var(--ease-out),filter .7s var(--ease-out)}
+.hero-words.is-in .hw{opacity:1;filter:none;transform:none}
+.hero-center .eyebrow-pill,.hero-center .lede,.hero-center .hero-ctas,.hero-center .hero-note{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease-out),transform .9s var(--ease-out)}
+.hero-center.is-in .eyebrow-pill{opacity:1;transform:none;transition-delay:.05s}
+.hero-center.is-in .lede{opacity:1;transform:none;transition-delay:.28s}
+.hero-center.is-in .hero-ctas{opacity:1;transform:none;transition-delay:.4s}
+.hero-center.is-in .hero-note{opacity:1;transform:none;transition-delay:.5s}
+
+.hero-center .hero-glow{position:absolute;left:10%;right:10%;bottom:-8%;height:48%;pointer-events:none;z-index:0;background:radial-gradient(ellipse at 50% 80%,rgba(255,106,61,.28),rgba(255,106,61,.06) 45%,transparent 70%);animation:glow-breathe 5.5s ease-in-out infinite;filter:blur(2px)}
+@keyframes glow-breathe{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
+.hero-center .hero-phones,.hero-center .eyebrow-pill,.hero-center h1,.hero-center .lede,.hero-center .hero-ctas,.hero-center .hero-note{position:relative;z-index:1}
+
+.iphone{opacity:0;transform:translateY(80px) scale(.97);transition:opacity .65s var(--ease-out),transform 1.2s var(--ease-out)}
+.hero-phones.is-in .iphone{opacity:1;transform:none}
+.hero-phones.is-in .iphone-l{transition-delay:.1s}
+.hero-phones.is-in .iphone-c{transition-delay:.22s}
+.hero-phones.is-in .iphone-r{transition-delay:.34s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hero-phones.is-in.is-bob .iphone-l{animation:bob 3.6s ease-in-out 1.5s infinite}
+.hero-phones.is-in.is-bob .iphone-c{animation:bob 4.1s ease-in-out 1.8s infinite}
+.hero-phones.is-in.is-bob .iphone-r{animation:bob 3.3s ease-in-out 1.3s infinite}
+
+.ph-pop{opacity:0;transform:translateY(10px) scale(.94)}
+.hero-phones.is-in .ph-pop{animation:tile-in .8s var(--ease-spring) .85s forwards}
+.hero-phones.is-in .ph-log .item,.hero-phones.is-in .ph-log .muted{opacity:0;transform:translateY(10px);animation:tile-in .7s var(--ease-out) calc(1.05s + var(--i,0) * .18s) forwards}
+@keyframes tile-in{to{opacity:1;transform:none}}
+.hero-phones.is-in .ph-stat{animation:tile-in .7s var(--ease-out) 1.15s both}
+@keyframes soft-glow{50%{box-shadow:0 0 0 3px var(--accent-soft)}}
+.hero-phones.is-in .ph-stat{animation:tile-in .7s var(--ease-out) 1.15s both, soft-glow 2.8s ease-in-out 2.2s infinite}
+
+.spark path,.chart-wrap path[stroke],.track-chart path[stroke],.eq-chart path[stroke]{stroke-dasharray:1;stroke-dashoffset:1}
+.is-in .spark path,.hero-phones.is-in .spark path,.is-in .chart-wrap path[stroke],.is-in .track-chart path[stroke],.is-in .eq-chart path[stroke]{animation:line-draw 1.5s var(--ease-out) .4s forwards}
+@keyframes line-draw{to{stroke-dashoffset:0}}
+
+.rise{opacity:0;transform:translateY(24px) scale(.985);transition:opacity .7s var(--ease-out),transform .9s var(--ease-out)}
+.rise.is-in{opacity:1;transform:none}
+.rise-d1{transition-delay:.08s}
+.rise-d2{transition-delay:.16s}
+.rise-d3{transition-delay:.24s}
+.rise-d4{transition-delay:.32s}
+
+.kicker-shine{background:linear-gradient(110deg,var(--accent) 0 30%,#ffd0c0 50%,var(--accent) 70% 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:kicker-shine 6s linear infinite}
+@keyframes kicker-shine{to{background-position:-220% 0}}
+
+.ticker{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--panel);padding:12px 0;margin:0 0 8px}
+.ticker-track{display:flex;gap:0;width:max-content;animation:ticker-x 45s linear infinite;will-change:transform}
+.ticker:hover .ticker-track{animation-play-state:paused}
+@keyframes ticker-x{to{transform:translateX(-50%)}}
+.ticker-item{display:inline-flex;align-items:center;gap:8px;padding:0 22px;white-space:nowrap;font-size:13px;font-weight:650;border-right:1px solid var(--line)}
+.ticker-item .sym{font-weight:800}
+.ticker-item .px{font-family:var(--mono);font-size:12.5px}
+
+.sn{font-variant-numeric:tabular-nums}
+.stats-row.is-in .sn{animation:stat-settle .5s var(--ease-out)}
+@keyframes stat-settle{from{filter:blur(4px);opacity:.5}to{filter:none;opacity:1}}
+
+.loop-step{transition:border-color .4s var(--ease-out),box-shadow .4s var(--ease-out),transform .4s var(--ease-out)}
+.loop-step.is-hot{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);transform:translateY(-3px)}
+
+.btn,.btn-app,.side-login,.token-pick,.chip{transition:transform .22s var(--ease-out),box-shadow .22s var(--ease-out),opacity .22s,background-color .22s,border-color .22s,color .22s}
+.btn:hover,.btn-app:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(29,27,32,.12);opacity:1}
+.btn-coral:hover,.btn-app:hover{filter:brightness(1.05)}
+.mkt-card,.step-card,.strat-card,.fact,.card,.cta-mini,.next-card,.lb-card,.track-card{transition:transform .35s var(--ease-out),box-shadow .35s var(--ease-out)}
+.mkt-card:hover,.step-card:hover,.strat-card:hover,.fact:hover,.cta-mini:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.nav-link{transition:background-color .2s,color .2s,transform .2s}
+.nav-link:hover{transform:translateX(2px)}
+.cta-float .cta-mini:nth-child(1){animation:drift 7s ease-in-out infinite}
+.cta-float .cta-mini:nth-child(2){animation:drift 8s ease-in-out -2s infinite}
+@keyframes drift{50%{transform:translateY(-8px) rotate(-1.2deg)}}
+
+.live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--up);margin-right:6px;box-shadow:0 0 0 0 rgba(24,138,77,.45);animation:dot-pulse 2s ease-out infinite;vertical-align:middle}
+@keyframes dot-pulse{70%,100%{box-shadow:0 0 0 10px rgba(24,138,77,0)}}
+
+/* App-page entrance */
+.main-narrow > h1,.main-narrow > .lede,.main-narrow > .card,.main-narrow > .grid-2,.main-narrow > .grid-3,.main-narrow > .stack{animation:page-in .7s var(--ease-out) both}
+.main-narrow > .lede{animation-delay:.08s}
+.main-narrow > .card,.main-narrow > .grid-2,.main-narrow > .grid-3,.main-narrow > .stack{animation-delay:.14s}
+@keyframes page-in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion: reduce){
+  .hero-words .hw,.hero-center .eyebrow-pill,.hero-center .lede,.hero-center .hero-ctas,.hero-center .hero-note,.iphone,.rise,.ph-pop{opacity:1!important;filter:none!important;transform:none!important;transition:none!important;animation:none!important}
+  .hero-phones.is-in .iphone-l,.hero-phones.is-in .iphone-c,.hero-phones.is-in .iphone-r{transform:none}
+  .hero-phones.is-in.is-bob .iphone-l,.hero-phones.is-in.is-bob .iphone-c,.hero-phones.is-in.is-bob .iphone-r,
+  .hero-glow,.kicker-shine,.ticker-track,.cta-float .cta-mini,.live-dot,
+  .hero-phones.is-in .ph-log .item,.hero-phones.is-in .ph-pop,.hero-phones.is-in .ph-stat,
+  .spark path,.chart-wrap path[stroke],.main-narrow > h1,.main-narrow > .lede,.main-narrow > .card,.main-narrow > .grid-2,.main-narrow > .grid-3,.main-narrow > .stack{animation:none!important}
+  .spark path,.chart-wrap path[stroke],.track-chart path[stroke],.eq-chart path[stroke]{stroke-dashoffset:0!important}
+  .btn:hover,.mkt-card:hover,.step-card:hover,.strat-card:hover,.fact:hover,.nav-link:hover{transform:none}
+  *,*::before,*::after{scroll-behavior:auto!important}
+}

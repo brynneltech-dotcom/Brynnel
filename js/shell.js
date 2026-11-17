@@ -303,7 +303,7 @@
           '<linearGradient id="downFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c03a32" stop-opacity=".28"/><stop offset="100%" stop-color="#c03a32" stop-opacity="0"/></linearGradient>' +
         "</defs>" +
         '<path d="' + area + '" fill="' + fill + '"></path>' +
-        '<path d="' + d + '" fill="none" stroke="' + stroke + '" stroke-width="2" stroke-linejoin="round"></path>' +
+        '<path pathLength="1" d="' + d + '" fill="none" stroke="' + stroke + '" stroke-width="2" stroke-linejoin="round"></path>' +
       "</svg>";
   }
 
