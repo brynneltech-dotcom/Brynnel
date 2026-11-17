@@ -78,7 +78,7 @@
             '<a class="btn" href="/studio">Build an agent</a>' +
             '<a class="btn btn-ghost" href="/markets">See live markets</a>' +
           "</div>" +
-          '<div class="hero-note">Mainnet only · no token has been launched</div>' +
+          sh().caPill() +
           '<div class="hero-phones">' +
             '<div class="iphone iphone-l"><div class="screen">' +
               '<div class="island"></div><div class="sb"><span data-clock></span><span>LTE</span></div>' +
@@ -244,10 +244,10 @@
         '<section class="next-band">' +
           '<div class="sec-kicker">What is live</div>' +
           '<h2>What is <span class="accent">live today.</span></h2>' +
-          '<p class="lede">Only work that is actually in this build is listed. No token, no public agent network, and no GitHub or domain have been published yet.</p>' +
+          '<p class="lede">Only work that is actually in this build is listed. No public agent network, and no GitHub or domain have been published yet.</p>' +
           '<div class="next-grid">' +
             '<div class="next-card"><span class="live">Live</span><h3>Studio, Dashboard, Swap</h3><p>Backtests run on Lighter hourly closes. A Lighter key can be registered in slot 21 and filings can be signed from your wallet. USDG, WETH, and cbBTC swap through verified Uniswap v3 pools on Robinhood Chain.</p></div>' +
-            '<div class="next-card"><span class="soon">Not built</span><h3>No token, no public board</h3><p>A Brynnel token has not been launched, and there is no contract address to publish. Agent results are not collected on a server, so a global leaderboard does not exist yet.</p></div>' +
+            '<div class="next-card"><span class="soon">Not built</span><h3>No public board</h3><p>Agent results are not collected on a server, so a global leaderboard does not exist yet. The token contract address is on this page and on the Token page.</p></div>' +
           "</div>" +
         "</section>" +
 
@@ -259,7 +259,7 @@
             faq("Is this mainnet?", "Yes. The site talks to Lighter mainnet and to Robinhood Chain mainnet.") +
             faq("How do backtests work?", "Studio reads hourly closes — and, for funding harvest, hourly fundings — from the public Lighter API. It asks for a 30-day window and tells you how many bars actually came back. The path starts at $10,000 virtual and is shown next to a hold of the same books. Fees are not deducted.") +
             faq("Can I swap?", "Yes, for USDG, WETH, and cbBTC, through verified Uniswap v3 pools on Robinhood Chain. ETH in the Swap panel is the WETH token, not native ETH. BTC is cbBTC. You sign the swap from your wallet. The price chart uses Lighter hourly closes, which can differ from the pool.") +
-            faq("Is there a token?", "No. No Brynnel token has been launched, and no contract address is published.") +
+            faq("Is there a token?", "Yes. The contract address is " + ((root.BRYNNEL_SETTINGS && root.BRYNNEL_SETTINGS.tokenCa) || "") + ".") +
             faq("Where is an agent stored?", "In this browser, on this device. Losing that storage means losing the stored agent and any sealed key, unless you have exported them yourself.") +
             faq("What is a filing?", "A proposal from a written rule after a scan. It is not an order until you sign it from the Dashboard.") +
             faq("Who can use this?", "Anyone who can connect a wallet on Robinhood Chain. Perpetual futures are risky. You can lose the funds in your wallet and in your Lighter account. Nothing on this site is investment advice.") +

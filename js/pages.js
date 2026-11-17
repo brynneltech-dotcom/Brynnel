@@ -426,15 +426,33 @@
         '<p class="muted">Perpetual futures are risky. You can lose the funds in your wallet and in your Lighter account. You are responsible for every transaction you sign.</p>' +
         '<p class="muted">Agents, journals, and sealed keys live in this browser unless you export them yourself. Brynnel does not run a server that stores your positions or keys.</p>' +
         '<p class="muted">This site talks to Lighter mainnet and to Robinhood Chain mainnet.</p>' +
-        '<p class="muted">The token page is a placeholder. No token has been launched, and no contract address is published here.</p>' +
+        '<p class="muted">The contract address is on the Token page.</p>' +
       "</div>"
     );
   }
 
   function token() {
+    var ca = (S() && S().tokenCa) || "";
+    function link(href, label) {
+      return '<a href="' + sh().escapeHtml(href) + '" target="_blank" rel="noopener noreferrer">' + sh().escapeHtml(label) + "</a>";
+    }
     mountApp("token",
       "<h1>Token</h1>" +
-      '<div class="card"><p class="empty">No Brynnel token has been launched. There is no contract address to publish. This page will stay empty until one exists — a placeholder address will not be invented.</p></div>'
+      '<div class="card stack">' +
+        '<table class="table"><tbody>' +
+          '<tr><td class="muted" style="width:160px">Chain</td><td>Robinhood Chain mainnet</td></tr>' +
+          '<tr><td class="muted">Symbol</td><td>$BRYNNEL</td></tr>' +
+        "</tbody></table>" +
+        '<div><p class="muted" style="margin:0">Contract address</p>' + sh().caBox() + "</div>" +
+        '<div class="token-links">' +
+          link("https://robinhoodchain.blockscout.com/token/" + ca, "Explorer") +
+          link("https://ponsfamily.com/launchpad/" + ca, "Pons") +
+          link("https://www.geckoterminal.com/robinhood/pools/0x71984b9683495ddd791ea50ede92a2492aa37254", "GeckoTerminal") +
+        "</div>" +
+        '<p class="token-burn muted">Burn: 10,285,956.66 BRYNNEL sent to 0x...dEaD (1.0286% of 1,000,000,000 supply). ' +
+          link("https://robinhoodchain.blockscout.com/tx/0xef545aad81a787589c8b3b2eeeb89b8ffd10e3fa6023dfe0927b81c15f14dc1e", "Transaction") +
+        "</p>" +
+      "</div>"
     );
   }
 

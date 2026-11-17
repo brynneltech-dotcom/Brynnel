@@ -49,5 +49,6 @@ window.BRYNNEL_SETTINGS = {
     }
   },
   x: "https://x.com/brynnelapp_",
-  github: ""
+  github: "",
+  tokenCa: "0x5db25eab04dd04123729bd76444016f238cefa5b"
 };

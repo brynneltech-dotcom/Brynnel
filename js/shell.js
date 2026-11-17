@@ -210,9 +210,60 @@
     return '<div class="m-wrap">' + marketHeader(page) + (inner || "") + marketFooter() + "</div>";
   }
 
+  function tokenCa() {
+    return String(settings().tokenCa || "");
+  }
+
+  function caBox() {
+    var ca = tokenCa();
+    return '<div class="ca-box"><code>' + escapeHtml(ca) + '</code>' +
+      '<button type="button" class="ca-copy" data-copy="' + escapeHtml(ca) + '">Copy</button></div>';
+  }
+
+  function caPill() {
+    var ca = tokenCa();
+    if (!ca) return "";
+    return '<div class="ca-pill"><span class="ca-k">CA</span><code>' + escapeHtml(ca) + '</code>' +
+      '<button type="button" class="ca-copy" data-copy="' + escapeHtml(ca) + '" aria-label="Copy contract address">Copy</button></div>';
+  }
+
+  function copyValue(value, btn) {
+    function mark() {
+      var prev = btn.textContent;
+      btn.textContent = "Copied";
+      setTimeout(function () { btn.textContent = prev; }, 1400);
+    }
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = value;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.top = "0";
+      ta.style.left = "0";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        if (document.execCommand("copy")) mark();
+      } catch (e) {}
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(value).then(mark).catch(fallback);
+    } else {
+      fallback();
+    }
+  }
+
   function bind() {
     applyTheme(readTheme());
     renderLoginButtons();
+    document.querySelectorAll("[data-copy]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        copyValue(btn.getAttribute("data-copy") || "", btn);
+      });
+    });
     document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
       btn.addEventListener("click", toggleTheme);
     });
@@ -328,6 +379,8 @@
     escapeHtml: escapeHtml,
     areaChart: areaChart,
     brandMark: brandMark,
+    caBox: caBox,
+    caPill: caPill,
     ICONS: ICONS
   };
 })(window);
